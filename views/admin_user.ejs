@@ -1,0 +1,54 @@
+<%- include('partials/header') %>
+
+<div class="card">
+    <div class="page-header-row">
+        <h1 class="page-title">
+            <%= user.last_name %> <%= user.first_name %>
+        </h1>
+        <a href="/admin" class="btn btn-ghost">← К списку</a>
+    </div>
+
+    <table class="info-table">
+        <tr><th>Группа:</th>      <td><%= user.group_name %></td></tr>
+        <tr><th>Возраст:</th>     <td><%= user.age %></td></tr>
+        <tr><th>Пол:</th>         <td><%= user.gender === 'male' ? 'мужской' : 'женский' %></td></tr>
+        <tr><th>Регистрация:</th> <td><%= new Date(user.created_at).toLocaleString('ru-RU') %></td></tr>
+    </table>
+
+    <h2 class="section-title">Результаты тестирования</h2>
+
+    <% if (sessions.length === 0) { %>
+        <div class="empty-state">
+            <p>У пользователя нет завершённых сессий тестирования.</p>
+        </div>
+    <% } else { %>
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Родитель</th>
+                    <th>Поз. интерес<br>(сыр./стд.)</th>
+                    <th>Директивн.<br>(сыр./стд.)</th>
+                    <th>Враждебн.<br>(сыр./стд.)</th>
+                    <th>Автономн.<br>(сыр./стд.)</th>
+                    <th>Непослед.<br>(сыр./стд.)</th>
+                    <th>Дата</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% sessions.forEach(function(s) { %>
+                    <tr>
+                        <td><%= s.parent === 'mother' ? 'Мать' : 'Отец' %></td>
+                        <td><%= s.raw_positive %> / <strong><%= s.std_positive %></strong></td>
+                        <td><%= s.raw_directive %> / <strong><%= s.std_directive %></strong></td>
+                        <td><%= s.raw_hostile %> / <strong><%= s.std_hostile %></strong></td>
+                        <td><%= s.raw_autonomy %> / <strong><%= s.std_autonomy %></strong></td>
+                        <td><%= s.raw_inconsist %> / <strong><%= s.std_inconsist %></strong></td>
+                        <td><%= new Date(s.completed_at).toLocaleString('ru-RU') %></td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>

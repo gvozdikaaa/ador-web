@@ -1,0 +1,56 @@
+<%- include('partials/header') %>
+
+<div class="card">
+    <div class="page-header-row">
+        <h1 class="page-title">Управление утверждениями</h1>
+        <a href="/admin" class="btn btn-ghost">← К панели</a>
+    </div>
+
+    <p class="hint">
+        В этом разделе можно скорректировать формулировку любого из 50 утверждений.
+        Изменения сразу же применяются к новым прохождениям теста и не затрагивают
+        ранее сохранённые результаты.
+    </p>
+
+    <table class="data-table editable-table">
+        <thead>
+            <tr>
+                <th class="col-num">№</th>
+                <th>Текст утверждения</th>
+                <th class="col-scale">Шкала</th>
+                <th class="col-action">Действие</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% questions.forEach(function(q) { %>
+                <tr>
+                    <form action="/admin/questions/<%= q.id %>/update" method="POST">
+                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+                        <td class="col-num"><%= q.id %></td>
+                        <td>
+                            <textarea name="text" rows="2" class="form-input"
+                                      required><%= q.text %></textarea>
+                        </td>
+                        <td class="col-scale">
+                            <%
+                            const scaleMap = {
+                                positive_interest: 'Поз. интерес',
+                                directiveness:     'Директивность',
+                                hostility:         'Враждебность',
+                                autonomy:          'Автономность',
+                                inconsistency:     'Непоследовательность'
+                            };
+                            %>
+                            <%= scaleMap[q.scale] %>
+                        </td>
+                        <td class="col-action">
+                            <button type="submit" class="btn btn-primary btn-sm">Сохранить</button>
+                        </td>
+                    </form>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+
+<%- include('partials/footer') %>

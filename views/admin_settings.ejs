@@ -1,0 +1,63 @@
+<%- include('partials/header') %>
+
+<div class="card">
+    <div class="page-header-row">
+        <h1 class="page-title">Настройки системы</h1>
+        <a href="/admin" class="btn btn-ghost">← К панели</a>
+    </div>
+
+    <p class="hint">
+        В этом разделе настраивается адрес электронной почты педагога-психолога,
+        получающего результаты тестирования, а также тексты, отображаемые
+        пользователю на страницах инструкции и результата.
+    </p>
+
+    <form action="/admin/settings" method="POST" class="form" autocomplete="off">
+                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+
+        <label class="form-label">
+            Адрес электронной почты педагога-психолога
+            <input type="email" name="psychologist_email" class="form-input"
+                   value="<%= settings.psychologist_email ? settings.psychologist_email.value : '' %>"
+                   required>
+            <small class="form-hint">
+                На этот адрес будут автоматически направляться отчёты по
+                каждому завершённому прохождению теста.
+            </small>
+        </label>
+
+        <label class="form-label">
+            Текст инструкции к выполнению
+            <textarea name="instruction_text" class="form-input" rows="6"
+                      required><%= settings.instruction_text ? settings.instruction_text.value : '' %></textarea>
+            <small class="form-hint">
+                Этот текст отображается на странице инструкции перед началом
+                прохождения теста.
+            </small>
+        </label>
+
+        <label class="form-label">
+            Мотивирующее сообщение на странице результатов
+            <textarea name="motivation_text" class="form-input" rows="6"
+                      required><%= settings.motivation_text ? settings.motivation_text.value : '' %></textarea>
+            <small class="form-hint">
+                Сообщение выводится пользователю по завершении тестирования
+                под таблицей баллов.
+            </small>
+        </label>
+
+        <label class="form-label">
+            Заключительная рекомендация
+            <textarea name="result_advice" class="form-input" rows="2"
+                      required><%= settings.result_advice ? settings.result_advice.value : '' %></textarea>
+            <small class="form-hint">
+                Краткая рекомендация обратиться к педагогу-психологу за
+                подробной интерпретацией.
+            </small>
+        </label>
+
+        <button type="submit" class="btn btn-primary btn-lg">Сохранить настройки</button>
+    </form>
+</div>
+
+<%- include('partials/footer') %>

@@ -1,0 +1,76 @@
+<%- include('partials/header') %>
+
+<div class="card">
+    <h1 class="page-title">Бланк теста — <%= parentRuSubject %></h1>
+    <p class="hint">
+        Заполните бланк целиком. Прогресс ответов отображается внизу страницы.
+        После заполнения всех 50 утверждений нажмите «Сохранить и продолжить».
+    </p>
+
+    <div class="encourage-strip">
+        💡 Отвечайте быстро и интуитивно — первое впечатление обычно самое точное.
+    </div>
+
+    <form action="/test/submit/<%= parent %>" method="POST" id="testForm" class="test-form">
+                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+        <table class="test-table">
+            <thead>
+                <tr>
+                    <th class="col-num">№</th>
+                    <th class="col-text"><%= parentRuSubject %>...</th>
+                    <th class="col-opt">Да (2)</th>
+                    <th class="col-opt">Частично (1)</th>
+                    <th class="col-opt">Нет (0)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% questions.forEach(function(q) { %>
+                    <tr>
+                        <td class="col-num"><%= q.id %></td>
+                        <td class="col-text"><%= q.text %></td>
+                        <td class="col-opt">
+                            <label class="radio-cell">
+                                <input type="radio" name="q_<%= q.id %>" value="2"
+                                       <%= previousAnswers[q.id] === 2 ? 'checked' : '' %> required>
+                                <span class="radio-dot"></span>
+                            </label>
+                        </td>
+                        <td class="col-opt">
+                            <label class="radio-cell">
+                                <input type="radio" name="q_<%= q.id %>" value="1"
+                                       <%= previousAnswers[q.id] === 1 ? 'checked' : '' %>>
+                                <span class="radio-dot"></span>
+                            </label>
+                        </td>
+                        <td class="col-opt">
+                            <label class="radio-cell">
+                                <input type="radio" name="q_<%= q.id %>" value="0"
+                                       <%= previousAnswers[q.id] === 0 ? 'checked' : '' %>>
+                                <span class="radio-dot"></span>
+                            </label>
+                        </td>
+                    </tr>
+                <% }); %>
+            </tbody>
+        </table>
+
+        <div class="progress-panel">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-label">
+                Отмечено ответов: <span id="answeredCount">0</span> из 50
+            </div>
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="btn btn-primary btn-lg">
+                Сохранить и продолжить →
+            </button>
+        </div>
+    </form>
+</div>
+
+<script src="/js/test.js"></script>
+
+<%- include('partials/footer') %>

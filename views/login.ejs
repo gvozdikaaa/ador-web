@@ -1,0 +1,69 @@
+<%- include('partials/header') %>
+
+<div class="card login-card">
+    <h1 class="page-title">Диагностика детско-родительских отношений</h1>
+    <p class="page-subtitle">
+        Методика «Подростки о родителях» (ADOR) — Шафер,
+        в модификации З. Матейчика и П. Ржичана.
+    </p>
+    <p class="hint">
+        Пожалуйста, введите свои данные. Они потребуются для отправки результатов
+        педагогу-психологу учреждения образования.
+    </p>
+
+    <div class="quote-block">
+        <p>«Понять себя — значит сделать первый шаг к пониманию других.
+           Ваши искренние ответы помогут увидеть отношения в семье под новым углом.»</p>
+    </div>
+
+    <form action="/login" method="POST" class="form" autocomplete="off">
+                <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+        <div class="form-row">
+            <label class="form-label">
+                Фамилия <span class="req">*</span>
+                <input type="text" name="last_name" class="form-input js-no-digits"
+                       required maxlength="20" pattern="[^0-9]+"
+                       title="Фамилия не должна содержать цифр">
+            </label>
+            <label class="form-label">
+                Имя <span class="req">*</span>
+                <input type="text" name="first_name" class="form-input js-no-digits"
+                       required maxlength="20" pattern="[^0-9]+"
+                       title="Имя не должно содержать цифр">
+            </label>
+        </div>
+
+        <div class="form-row">
+            <label class="form-label">
+                Учебная группа <span class="req">*</span>
+                <input type="text" name="group_name" class="form-input"
+                       placeholder="например, 3К9342" required maxlength="20">
+            </label>
+            <label class="form-label">
+                Возраст <span class="req">*</span>
+                <input type="number" name="age" class="form-input"
+                       min="11" max="25" required>
+            </label>
+        </div>
+
+        <fieldset class="form-fieldset">
+            <legend>Пол <span class="req">*</span></legend>
+            <label class="radio-inline">
+                <input type="radio" name="gender" value="male" required>
+                <span>Мужской</span>
+            </label>
+            <label class="radio-inline">
+                <input type="radio" name="gender" value="female">
+                <span>Женский</span>
+            </label>
+        </fieldset>
+
+        <button type="submit" class="btn btn-primary btn-lg">
+            Перейти к инструкции
+        </button>
+    </form>
+</div>
+
+<script src="/js/login.js"></script>
+
+<%- include('partials/footer') %>

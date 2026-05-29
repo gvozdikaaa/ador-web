@@ -1,0 +1,103 @@
+<%- include('partials/header') %>
+
+<div class="card">
+    <h1 class="page-title">Спасибо, <%= user.first_name %>!</h1>
+    <p class="page-subtitle">
+        Ваши ответы успешно обработаны. Ниже представлены цифровые результаты
+        по пяти шкалам методики ADOR.
+    </p>
+
+    <% if (emailSent) { %>
+        <div class="alert alert-success">
+            Полный отчёт отправлен педагогу-психологу учреждения образования.
+        </div>
+    <% } else { %>
+        <div class="alert alert-warning">
+            Результаты сохранены в системе. Если письмо не дошло до педагога-психолога,
+            обратитесь к администратору лично.
+        </div>
+    <% } %>
+
+    <div class="results-grid">
+        <div class="result-block">
+            <h2>Оценка матери</h2>
+            <table class="result-table">
+                <% Object.keys(scaleNames).forEach(function(key) { %>
+                    <tr>
+                        <td class="scale-name"><%= scaleNames[key] %></td>
+                        <td class="scale-score">
+                            <span class="score-value score-<%= motherResults.std[key] %>">
+                                <%= motherResults.std[key] %>
+                            </span>
+                            <span class="score-max">/ 5</span>
+                        </td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+
+        <div class="result-block">
+            <h2>Оценка отца</h2>
+            <table class="result-table">
+                <% Object.keys(scaleNames).forEach(function(key) { %>
+                    <tr>
+                        <td class="scale-name"><%= scaleNames[key] %></td>
+                        <td class="scale-score">
+                            <span class="score-value score-<%= fatherResults.std[key] %>">
+                                <%= fatherResults.std[key] %>
+                            </span>
+                            <span class="score-max">/ 5</span>
+                        </td>
+                    </tr>
+                <% }); %>
+            </table>
+        </div>
+    </div>
+
+    <div class="legend">
+        <p>
+            <strong>Как читать баллы:</strong> норма — 3 балла. Значения 1–2
+            означают, что характеристика выражена слабо; значения 4–5 — выражена
+            отчётливо. Подробная интерпретация результатов индивидуальна и
+            требует беседы со специалистом.
+        </p>
+    </div>
+
+    <% if (motivationText) { %>
+        <div class="motivation-card">
+            <h2>Несколько слов напоследок</h2>
+            <p><%= motivationText %></p>
+            <% if (resultAdvice) { %>
+                <p class="footnote"><%= resultAdvice %></p>
+            <% } %>
+        </div>
+    <% } else { %>
+        <div class="motivation-card">
+            <h2>Несколько слов напоследок</h2>
+            <p>
+                Благодарим Вас за откровенность и внимательность при прохождении методики.
+                Ваши ответы — это шаг к лучшему пониманию себя и своих отношений с близкими.
+                Помните: ни одна цифра в таблице не определяет, кто Вы. Это лишь повод
+                задуматься, поговорить и стать ближе к тем, кто рядом.
+            </p>
+            <p class="footnote">
+                Для подробной интерпретации результатов рекомендуем обратиться к
+                педагогу-психологу учреждения образования.
+            </p>
+        </div>
+    <% } %>
+
+    <div class="quote-block">
+        <p>«Семья — это не место, где всё идеально. Это место, где Вас принимают
+           таким, какой Вы есть, и помогают стать лучше.»</p>
+    </div>
+
+    <div class="actions">
+        <form action="/logout" method="POST" class="inline-form">
+            <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
+            <button type="submit" class="btn btn-primary btn-lg">Завершить работу</button>
+        </form>
+    </div>
+</div>
+
+<%- include('partials/footer') %>

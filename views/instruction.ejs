@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+
+<div class="card">
+    <h1 class="page-title">Инструкция к выполнению</h1>
+
+    <p class="greeting">
+        Уважаемый <%= user.first_name %>, благодарим за участие в исследовании.
+    </p>
+
+    <div class="instruction-block">
+        <h2>Описание</h2>
+        <p><%= instructionText %></p>
+    </div>
+
+    <div class="instruction-block">
+        <h2>Как отвечать</h2>
+        <p>
+            Для каждого утверждения выберите один из трёх вариантов ответа:
+        </p>
+        <table class="instr-table">
+            <tr>
+                <td class="cell-num">2 — «Да»</td>
+                <td>утверждение полностью соответствует
+                    воспитательным принципам Вашего родителя</td>
+            </tr>
+            <tr>
+                <td class="cell-num">1 — «Частично»</td>
+                <td>высказывание частично подходит для Вашего родителя</td>
+            </tr>
+            <tr>
+                <td class="cell-num">0 — «Нет»</td>
+                <td>утверждение не относится к Вашему родителю</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="quote-block">
+        <p>«Здесь нет правильных или неправильных ответов. Есть только Ваш взгляд,
+           Ваше восприятие — а оно ценно само по себе. Будьте честны с собой,
+           и Вы получите наиболее точный результат.»</p>
+    </div>
+
+    <div class="actions">
+        <a href="/test/take/mother" class="btn btn-primary btn-lg">
+            Начать оценку матери →
+        </a>
+    </div>
+</div>
+
+<%- include('partials/footer') %>
