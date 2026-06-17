@@ -14,7 +14,7 @@
                 <span class="brand-sub">«Подростки о родителях»</span>
             </div>
             <nav class="nav">
-                <% if (user) { %>
+                <% if (typeof user !== 'undefined' && user) { %>
                     <span class="nav-info">
                         <%= user.last_name %> <%= user.first_name.charAt(0) %>. (гр. <%= user.group_name %>)
                     </span>
@@ -22,7 +22,7 @@
                         <input type="hidden" name="_csrf" value="<%= typeof csrfToken !== 'undefined' ? csrfToken : '' %>">
                         <button type="submit" class="btn btn-ghost btn-sm">Выйти</button>
                     </form>
-                <% } else if (admin) { %>
+                <% } else if (typeof admin !== 'undefined' && admin) { %>
                     <span class="nav-info">Админ: <%= admin.full_name %></span>
                     <a href="/admin" class="btn btn-ghost btn-sm">Панель</a>
                     <form action="/admin/logout" method="POST" class="logout-form">
