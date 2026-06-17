@@ -31,20 +31,17 @@ function getTransporter() {
     const secure = port === 465;
 
     transporter = nodemailer.createTransport({
-        host:   process.env.SMTP_HOST || 'smtp.gmail.com',
-        port:   port,
-        secure: secure,
-        requireTLS: !secure,            // принудительный STARTTLS для 587
-        auth: {
-            user: user,
-            pass: pass
-        },
-        // Тайм-ауты, чтобы при недоступном сервере отправка завершалась
-        // с понятной ошибкой, а не «висела» неопределённо долго.
-        connectionTimeout: 10000,
-        greetingTimeout:   10000,
-        socketTimeout:     15000
-    });
+    service: 'gmail',
+
+    auth: {
+        user: user,
+        pass: pass
+    },
+
+    connectionTimeout: 30000,
+    greetingTimeout: 30000,
+    socketTimeout: 30000
+});
     return transporter;
 }
 
