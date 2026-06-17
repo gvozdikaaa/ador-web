@@ -65,8 +65,14 @@ app.use(function (req, res, next) {
 
 // Проверка CSRF-токена для всех POST-запросов
 app.use(function (req, res, next) {
-    if (req.method !== 'POST') return next();
-    if (req.path === '/login') return next(); // первая POST-форма (токен ещё не виден клиенту)
+   if (req.method !== 'POST') return next();
+
+if (
+    req.path === '/login' ||
+    req.path === '/admin/login'
+) {
+    return next();
+}
     const submitted = req.body && req.body._csrf;
     if (!submitted || submitted !== req.session.csrfToken) {
         console.warn('[security] Отвергнут запрос без действительного CSRF-токена:', req.path);
