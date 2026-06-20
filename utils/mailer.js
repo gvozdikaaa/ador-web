@@ -23,12 +23,12 @@ function getTransporter() {
         return null;
     }
 
-    const port = parseInt(process.env.SMTP_PORT, 10) || 587;
+    const port = 465;
     // secure=true только для порта 465 (SSL). Для 587 используется STARTTLS
     // (secure=false). Если в .env значение SMTP_SECURE указано неверно,
     // оно автоматически приводится в соответствие порту — это устраняет
     // распространённую причину «зависания» отправки письма.
-    const secure = port === 465;
+   const secure = true;
 
     transporter = nodemailer.createTransport({
     service: 'gmail',
