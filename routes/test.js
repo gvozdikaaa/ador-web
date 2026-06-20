@@ -41,7 +41,11 @@ router.get('/take/:parent', async function (req, res) {
             questions: questions,
             parent: parent,
             parentRuSubject: parentRuSubject,
-            previousAnswers: req.session.testProgress[parent].answers
+            previousAnswers:
+                req.session.testProgress &&
+                req.session.testProgress[parent]
+                   ? req.session.testProgress[parent].answers
+                   : {}
         });
     } catch (err) {
         console.error('[test] Ошибка загрузки вопросов:', err);
