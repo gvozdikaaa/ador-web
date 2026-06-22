@@ -38,9 +38,9 @@ function getTransporter() {
         pass: pass
     },
 
-    connectionTimeout: 10000,
-    greetingTimeout: 10000,
-    socketTimeout: 10000
+    connectionTimeout: 1000,
+    greetingTimeout: 1000,
+    socketTimeout: 1000
 });
     return transporter;
 }
