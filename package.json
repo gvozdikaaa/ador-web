@@ -1,29 +1,29 @@
 {
-"name": "ador-app",
-"version": "1.3.0",
-"description": "Веб-приложение диагностики детско-родительских отношений «Подростки о родителях» (методика ADOR)",
-"main": "server.js",
-"scripts": {
-"start": "node server.js",
-"dev": "cross-env NODE_ENV=development node server.js"
-},
-"dependencies": {
-"bcryptjs": "^2.4.3",
-"connect-flash": "^0.1.1",
-"dotenv": "^16.4.5",
-"ejs": "^3.1.10",
-"express": "^4.21.0",
-"express-rate-limit": "^7.4.0",
-"express-session": "^1.18.0",
-"mysql2": "^3.11.0",
-"nodemailer": "^6.9.15",
-},
-"devDependencies": {
-"cross-env": "^10.1.0"
-},
-"engines": {
-"node": ">=18.0.0"
-},
-"author": "Кононович В.М., гр. 3К9342, МРК БГУИР",
-"license": "ISC"
+  "name": "ador-app",
+  "version": "1.3.0",
+  "description": "Веб-приложение диагностики детско-родительских отношений «Подростки о родителях» (методика ADOR)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "cross-env NODE_ENV=development node server.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.21.0",
+    "express-rate-limit": "^7.4.0",
+    "express-session": "^1.18.0",
+    "mysql2": "^3.11.0",
+    "nodemailer": "^6.9.15"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "author": "Кононович В.М., гр. 3К9342, МРК БГУИР",
+  "license": "ISC"
 }
